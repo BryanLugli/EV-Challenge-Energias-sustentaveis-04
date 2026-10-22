@@ -397,6 +397,7 @@ Opções: `python main.py --dias 7 --inicio 2026-07-01 --sem-anual`. Todos os pa
 4. Crie a aba `libraries.txt` com o conteúdo de `firmware/libraries.txt` (biblioteca LiquidCrystal I2C).
 5. Aperte ▶. Ligue as chaves "Carro 1" e "Carro 2" e mova o controle do sensor de luz para simular nuvens.
 6. Para integrar com o Python: copie o Monitor Serial para `firmware/log_wokwi.txt` e rode `python -m greencharge.importar_wokwi firmware/log_wokwi.txt`.
+   Simulação Wokwi (ESP32): https://wokwi.com/projects/478591890836661249
 
 ---
 
