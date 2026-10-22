@@ -1,0 +1,5 @@
+matplotlib>=3.7
+pytest>=7
+# opcionais:
+# goodwe>=0.4      # leitura de inversor GoodWe real (FonteGoodWe)
+# requests>=2.31   # assistente com LLM (GROQ_API_KEY)

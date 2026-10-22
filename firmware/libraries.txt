@@ -1,0 +1,2 @@
+# Bibliotecas do Wokwi
+LiquidCrystal I2C

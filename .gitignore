@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+firmware/log_wokwi.txt
+.env

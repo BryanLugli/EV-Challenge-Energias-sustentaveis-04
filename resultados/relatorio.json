@@ -1,0 +1,518 @@
+{
+  "projeto": "GreenCharge — Sprint 4",
+  "periodo": {
+    "inicio": "2026-10-01",
+    "dias": 30
+  },
+  "sistema": {
+    "pv_kwp": 15.0,
+    "pv_performance_ratio": 0.8,
+    "bat_capacidade_kwh": 16.38,
+    "bat_soc_min": 0.1,
+    "bat_soc_max": 0.95,
+    "bat_potencia_kw": 7.5,
+    "bat_eficiencia_ida_volta": 0.92,
+    "bat_soc_inicial": 0.5,
+    "n_carregadores": 4,
+    "carregador_pmax_kw": 7.0,
+    "carregador_pmin_kw": 1.4,
+    "limite_rede_kw": 22.0
+  },
+  "tarifa": {
+    "ponta": 1.4803,
+    "intermediario": 0.9845,
+    "fora_ponta": 0.66924,
+    "convencional": 0.78938,
+    "fracao_valor_injecao": 0.7
+  },
+  "ambiental": {
+    "fator_emissao_rede_kg_kwh": 0.0247,
+    "consumo_ve_kwh_km": 0.17,
+    "consumo_combustao_km_l": 11.0,
+    "emissao_gasolina_kg_l": 2.2
+  },
+  "kpis": {
+    "imediata": {
+      "estrategia": "imediata",
+      "rotulo": "Sprint 2: carga imediata, sem bateria",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1768.1,
+      "ev_do_pv_kwh": 483.4,
+      "ev_da_bateria_kwh": 0.0,
+      "ev_da_rede_kwh": 1284.7,
+      "rede_na_ponta_kwh": 457.4,
+      "injecao_kwh": 1742.0,
+      "fracao_solar_pct": 27.3,
+      "autoconsumo_pv_pct": 21.7,
+      "pico_rede_kw": 28.0,
+      "passos_acima_limite": 8,
+      "custo_rede_rs": 1300.02,
+      "credito_injecao_rs": 816.07,
+      "custo_liquido_rs": 483.95,
+      "custo_rede_por_kwh_rs": 0.735,
+      "custo_medio_rs_kwh": 0.274,
+      "co2_rede_kg": 31.7,
+      "co2_evitado_vs_rede_kg": 11.9,
+      "co2_evitado_vs_combustao_kg": 2048.4,
+      "km_eletricos": 10401,
+      "litros_gasolina_evitados": 946,
+      "ciclos_bateria": 0,
+      "sessoes_total": 226,
+      "sessoes_100pct": 187,
+      "sessoes_atendidas_pct": 82.7,
+      "sessoes_sem_vaga": 28,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 263.8
+    },
+    "autoconsumo": {
+      "estrategia": "autoconsumo",
+      "rotulo": "Bateria GoodWe em modo autoconsumo",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1768.1,
+      "ev_do_pv_kwh": 483.4,
+      "ev_da_bateria_kwh": 484.1,
+      "ev_da_rede_kwh": 800.6,
+      "rede_na_ponta_kwh": 274.5,
+      "injecao_kwh": 1222.6,
+      "fracao_solar_pct": 54.7,
+      "autoconsumo_pv_pct": 45.1,
+      "pico_rede_kw": 23.3,
+      "passos_acima_limite": 1,
+      "custo_rede_rs": 805.27,
+      "credito_injecao_rs": 569.68,
+      "custo_liquido_rs": 235.59,
+      "custo_rede_por_kwh_rs": 0.455,
+      "custo_medio_rs_kwh": 0.133,
+      "co2_rede_kg": 19.8,
+      "co2_evitado_vs_rede_kg": 23.9,
+      "co2_evitado_vs_combustao_kg": 2060.3,
+      "km_eletricos": 10401,
+      "litros_gasolina_evitados": 946,
+      "ciclos_bateria": 30.6,
+      "sessoes_total": 226,
+      "sessoes_100pct": 187,
+      "sessoes_atendidas_pct": 82.7,
+      "sessoes_sem_vaga": 28,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 263.8
+    },
+    "greencharge": {
+      "estrategia": "greencharge",
+      "rotulo": "GreenCharge inteligente (Sprint 4)",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1952.9,
+      "ev_do_pv_kwh": 916.5,
+      "ev_da_bateria_kwh": 348.6,
+      "ev_da_rede_kwh": 687.7,
+      "rede_na_ponta_kwh": 0.7,
+      "injecao_kwh": 936.7,
+      "fracao_solar_pct": 64.8,
+      "autoconsumo_pv_pct": 57.9,
+      "pico_rede_kw": 15.5,
+      "passos_acima_limite": 0,
+      "custo_rede_rs": 461.13,
+      "credito_injecao_rs": 435.75,
+      "custo_liquido_rs": 25.39,
+      "custo_rede_por_kwh_rs": 0.236,
+      "custo_medio_rs_kwh": 0.013,
+      "co2_rede_kg": 17.0,
+      "co2_evitado_vs_rede_kg": 31.2,
+      "co2_evitado_vs_combustao_kg": 2280.5,
+      "km_eletricos": 11487,
+      "litros_gasolina_evitados": 1044,
+      "ciclos_bateria": 22.0,
+      "sessoes_total": 226,
+      "sessoes_100pct": 210,
+      "sessoes_atendidas_pct": 92.9,
+      "sessoes_sem_vaga": 7,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 79.1
+    }
+  },
+  "ablacao": {
+    "imediata": {
+      "estrategia": "imediata",
+      "rotulo": "Sprint 2: carga imediata, sem bateria",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1768.1,
+      "ev_do_pv_kwh": 483.4,
+      "ev_da_bateria_kwh": 0.0,
+      "ev_da_rede_kwh": 1284.7,
+      "rede_na_ponta_kwh": 457.4,
+      "injecao_kwh": 1742.0,
+      "fracao_solar_pct": 27.3,
+      "autoconsumo_pv_pct": 21.7,
+      "pico_rede_kw": 28.0,
+      "passos_acima_limite": 8,
+      "custo_rede_rs": 1300.02,
+      "credito_injecao_rs": 816.07,
+      "custo_liquido_rs": 483.95,
+      "custo_rede_por_kwh_rs": 0.735,
+      "custo_medio_rs_kwh": 0.274,
+      "co2_rede_kg": 31.7,
+      "co2_evitado_vs_rede_kg": 11.9,
+      "co2_evitado_vs_combustao_kg": 2048.4,
+      "km_eletricos": 10401,
+      "litros_gasolina_evitados": 946,
+      "ciclos_bateria": 0,
+      "sessoes_total": 226,
+      "sessoes_100pct": 187,
+      "sessoes_atendidas_pct": 82.7,
+      "sessoes_sem_vaga": 28,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 263.8
+    },
+    "autoconsumo": {
+      "estrategia": "autoconsumo",
+      "rotulo": "Bateria GoodWe em modo autoconsumo",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1768.1,
+      "ev_do_pv_kwh": 483.4,
+      "ev_da_bateria_kwh": 484.1,
+      "ev_da_rede_kwh": 800.6,
+      "rede_na_ponta_kwh": 274.5,
+      "injecao_kwh": 1222.6,
+      "fracao_solar_pct": 54.7,
+      "autoconsumo_pv_pct": 45.1,
+      "pico_rede_kw": 23.3,
+      "passos_acima_limite": 1,
+      "custo_rede_rs": 805.27,
+      "credito_injecao_rs": 569.68,
+      "custo_liquido_rs": 235.59,
+      "custo_rede_por_kwh_rs": 0.455,
+      "custo_medio_rs_kwh": 0.133,
+      "co2_rede_kg": 19.8,
+      "co2_evitado_vs_rede_kg": 23.9,
+      "co2_evitado_vs_combustao_kg": 2060.3,
+      "km_eletricos": 10401,
+      "litros_gasolina_evitados": 946,
+      "ciclos_bateria": 30.6,
+      "sessoes_total": 226,
+      "sessoes_100pct": 187,
+      "sessoes_atendidas_pct": 82.7,
+      "sessoes_sem_vaga": 28,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 263.8
+    },
+    "greencharge": {
+      "estrategia": "greencharge",
+      "rotulo": "GreenCharge inteligente (Sprint 4)",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1952.9,
+      "ev_do_pv_kwh": 916.5,
+      "ev_da_bateria_kwh": 348.6,
+      "ev_da_rede_kwh": 687.7,
+      "rede_na_ponta_kwh": 0.7,
+      "injecao_kwh": 936.7,
+      "fracao_solar_pct": 64.8,
+      "autoconsumo_pv_pct": 57.9,
+      "pico_rede_kw": 15.5,
+      "passos_acima_limite": 0,
+      "custo_rede_rs": 461.13,
+      "credito_injecao_rs": 435.75,
+      "custo_liquido_rs": 25.39,
+      "custo_rede_por_kwh_rs": 0.236,
+      "custo_medio_rs_kwh": 0.013,
+      "co2_rede_kg": 17.0,
+      "co2_evitado_vs_rede_kg": 31.2,
+      "co2_evitado_vs_combustao_kg": 2280.5,
+      "km_eletricos": 11487,
+      "litros_gasolina_evitados": 1044,
+      "ciclos_bateria": 22.0,
+      "sessoes_total": 226,
+      "sessoes_100pct": 210,
+      "sessoes_atendidas_pct": 92.9,
+      "sessoes_sem_vaga": 7,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 79.1
+    },
+    "greencharge_sem_fila": {
+      "estrategia": "greencharge_sem_fila",
+      "rotulo": "GreenCharge sem gestão de fila",
+      "energia_pv_kwh": 2225.4,
+      "energia_ev_kwh": 1768.1,
+      "ev_do_pv_kwh": 785.1,
+      "ev_da_bateria_kwh": 374.8,
+      "ev_da_rede_kwh": 608.1,
+      "rede_na_ponta_kwh": 5.6,
+      "injecao_kwh": 1039.6,
+      "fracao_solar_pct": 65.6,
+      "autoconsumo_pv_pct": 53.3,
+      "pico_rede_kw": 14.6,
+      "passos_acima_limite": 0,
+      "custo_rede_rs": 411.9,
+      "credito_injecao_rs": 483.96,
+      "custo_liquido_rs": -72.07,
+      "custo_rede_por_kwh_rs": 0.233,
+      "custo_medio_rs_kwh": -0.041,
+      "co2_rede_kg": 15.0,
+      "co2_evitado_vs_rede_kg": 28.7,
+      "co2_evitado_vs_combustao_kg": 2065.1,
+      "km_eletricos": 10401,
+      "litros_gasolina_evitados": 946,
+      "ciclos_bateria": 23.7,
+      "sessoes_total": 226,
+      "sessoes_100pct": 187,
+      "sessoes_atendidas_pct": 82.7,
+      "sessoes_sem_vaga": 28,
+      "energia_pedida_kwh": 2000.5,
+      "energia_nao_entregue_kwh": 263.8
+    }
+  },
+  "projecao_anual": {
+    "imediata": {
+      "fracao_solar_pct": 24.9,
+      "energia_ev_kwh": 21423.4,
+      "ev_da_rede_kwh": 16087.6,
+      "rede_na_ponta_kwh": 5251.2,
+      "custo_rede_rs": 15619.22,
+      "custo_rede_por_kwh_rs": 0.729,
+      "custo_liquido_rs": 8914.23,
+      "co2_evitado_vs_combustao_kg": 24806.6,
+      "co2_evitado_vs_rede_kg": 131.8,
+      "km_eletricos": 126020,
+      "litros_gasolina_evitados": 11456,
+      "pico_rede_kw": 28.0,
+      "ciclos_bateria": 0,
+      "sessoes_atendidas_pct": 89.8
+    },
+    "autoconsumo": {
+      "fracao_solar_pct": 49.8,
+      "energia_ev_kwh": 21423.4,
+      "ev_da_rede_kwh": 10754.8,
+      "rede_na_ponta_kwh": 3326.4,
+      "custo_rede_rs": 10283.82,
+      "custo_rede_por_kwh_rs": 0.48,
+      "custo_liquido_rs": 6294.18,
+      "co2_evitado_vs_combustao_kg": 24938.3,
+      "co2_evitado_vs_rede_kg": 263.5,
+      "km_eletricos": 126020,
+      "litros_gasolina_evitados": 11456,
+      "pico_rede_kw": 28.0,
+      "ciclos_bateria": 339.5,
+      "sessoes_atendidas_pct": 89.8
+    },
+    "greencharge": {
+      "fracao_solar_pct": 57.2,
+      "energia_ev_kwh": 22684.0,
+      "ev_da_rede_kwh": 9704.3,
+      "rede_na_ponta_kwh": 101.6,
+      "custo_rede_rs": 6590.73,
+      "custo_rede_por_kwh_rs": 0.291,
+      "custo_liquido_rs": 3608.11,
+      "co2_evitado_vs_combustao_kg": 26447.4,
+      "co2_evitado_vs_rede_kg": 320.6,
+      "km_eletricos": 133435,
+      "litros_gasolina_evitados": 12130,
+      "pico_rede_kw": 21.6,
+      "ciclos_bateria": 221.2,
+      "sessoes_atendidas_pct": 96.5
+    }
+  },
+  "previsao_amanha": [
+    {
+      "hora": "05:30",
+      "pv_kw": 0.11
+    },
+    {
+      "hora": "05:45",
+      "pv_kw": 0.6
+    },
+    {
+      "hora": "06:00",
+      "pv_kw": 1.16
+    },
+    {
+      "hora": "06:15",
+      "pv_kw": 1.65
+    },
+    {
+      "hora": "06:30",
+      "pv_kw": 2.43
+    },
+    {
+      "hora": "06:45",
+      "pv_kw": 2.84
+    },
+    {
+      "hora": "07:00",
+      "pv_kw": 2.9
+    },
+    {
+      "hora": "07:15",
+      "pv_kw": 3.6
+    },
+    {
+      "hora": "07:30",
+      "pv_kw": 3.28
+    },
+    {
+      "hora": "07:45",
+      "pv_kw": 3.96
+    },
+    {
+      "hora": "08:00",
+      "pv_kw": 4.86
+    },
+    {
+      "hora": "08:15",
+      "pv_kw": 5.33
+    },
+    {
+      "hora": "08:30",
+      "pv_kw": 4.72
+    },
+    {
+      "hora": "08:45",
+      "pv_kw": 5.21
+    },
+    {
+      "hora": "09:00",
+      "pv_kw": 5.45
+    },
+    {
+      "hora": "09:15",
+      "pv_kw": 5.29
+    },
+    {
+      "hora": "09:30",
+      "pv_kw": 4.17
+    },
+    {
+      "hora": "09:45",
+      "pv_kw": 4.12
+    },
+    {
+      "hora": "10:00",
+      "pv_kw": 4.58
+    },
+    {
+      "hora": "10:15",
+      "pv_kw": 6.12
+    },
+    {
+      "hora": "10:30",
+      "pv_kw": 8.48
+    },
+    {
+      "hora": "10:45",
+      "pv_kw": 8.79
+    },
+    {
+      "hora": "11:00",
+      "pv_kw": 7.76
+    },
+    {
+      "hora": "11:15",
+      "pv_kw": 7.3
+    },
+    {
+      "hora": "11:30",
+      "pv_kw": 8.13
+    },
+    {
+      "hora": "11:45",
+      "pv_kw": 8.34
+    },
+    {
+      "hora": "12:00",
+      "pv_kw": 8.28
+    },
+    {
+      "hora": "12:15",
+      "pv_kw": 8.08
+    },
+    {
+      "hora": "12:30",
+      "pv_kw": 8.62
+    },
+    {
+      "hora": "12:45",
+      "pv_kw": 9.71
+    },
+    {
+      "hora": "13:00",
+      "pv_kw": 8.71
+    },
+    {
+      "hora": "13:15",
+      "pv_kw": 8.06
+    },
+    {
+      "hora": "13:30",
+      "pv_kw": 7.78
+    },
+    {
+      "hora": "13:45",
+      "pv_kw": 6.82
+    },
+    {
+      "hora": "14:00",
+      "pv_kw": 4.97
+    },
+    {
+      "hora": "14:15",
+      "pv_kw": 5.36
+    },
+    {
+      "hora": "14:30",
+      "pv_kw": 4.77
+    },
+    {
+      "hora": "14:45",
+      "pv_kw": 5.42
+    },
+    {
+      "hora": "15:00",
+      "pv_kw": 5.09
+    },
+    {
+      "hora": "15:15",
+      "pv_kw": 5.37
+    },
+    {
+      "hora": "15:30",
+      "pv_kw": 4.3
+    },
+    {
+      "hora": "15:45",
+      "pv_kw": 4.31
+    },
+    {
+      "hora": "16:00",
+      "pv_kw": 3.11
+    },
+    {
+      "hora": "16:15",
+      "pv_kw": 3.08
+    },
+    {
+      "hora": "16:30",
+      "pv_kw": 2.54
+    },
+    {
+      "hora": "16:45",
+      "pv_kw": 2.31
+    },
+    {
+      "hora": "17:00",
+      "pv_kw": 1.72
+    },
+    {
+      "hora": "17:15",
+      "pv_kw": 1.34
+    },
+    {
+      "hora": "17:30",
+      "pv_kw": 0.89
+    },
+    {
+      "hora": "17:45",
+      "pv_kw": 0.43
+    },
+    {
+      "hora": "18:00",
+      "pv_kw": 0.06
+    }
+  ]
+}

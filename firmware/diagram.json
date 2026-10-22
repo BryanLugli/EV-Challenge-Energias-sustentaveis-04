@@ -1,0 +1,357 @@
+{
+  "version": 1,
+  "author": "Equipe GreenCharge",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": -150,
+      "left": -60,
+      "attrs": {
+        "pins": "i2c"
+      }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr",
+      "top": 200,
+      "left": -220,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw1",
+      "top": -60,
+      "left": -160,
+      "attrs": {
+        "label": "Carro 1"
+      }
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw2",
+      "top": -60,
+      "left": -110,
+      "attrs": {
+        "label": "Carro 2"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_solar",
+      "top": -20,
+      "left": 220,
+      "attrs": {
+        "color": "green",
+        "label": "SOLAR"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_solar",
+      "top": 20,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_misto",
+      "top": 25,
+      "left": 220,
+      "attrs": {
+        "color": "yellow",
+        "label": "MISTO"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_misto",
+      "top": 65,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_rede",
+      "top": 70,
+      "left": 220,
+      "attrs": {
+        "color": "red",
+        "label": "REDE"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_rede",
+      "top": 110,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_bat",
+      "top": 115,
+      "left": 220,
+      "attrs": {
+        "color": "blue",
+        "label": "BATERIA"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_bat",
+      "top": 155,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_ev1",
+      "top": 160,
+      "left": 220,
+      "attrs": {
+        "color": "white",
+        "label": "EV1 kW"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_ev1",
+      "top": 200,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_ev2",
+      "top": 205,
+      "left": 220,
+      "attrs": {
+        "color": "white",
+        "label": "EV2 kW"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_ev2",
+      "top": 245,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:TX0",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX0",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "lcd:SDA",
+      "esp:D21",
+      "blue",
+      []
+    ],
+    [
+      "lcd:SCL",
+      "esp:D22",
+      "purple",
+      []
+    ],
+    [
+      "lcd:VCC",
+      "esp:VIN",
+      "red",
+      []
+    ],
+    [
+      "lcd:GND",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "ldr:AO",
+      "esp:D34",
+      "orange",
+      []
+    ],
+    [
+      "ldr:VCC",
+      "esp:3V3",
+      "red",
+      []
+    ],
+    [
+      "ldr:GND",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "sw1:2",
+      "esp:D32",
+      "green",
+      []
+    ],
+    [
+      "sw1:1",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "sw2:2",
+      "esp:D33",
+      "green",
+      []
+    ],
+    [
+      "sw2:1",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "esp:D25",
+      "led_solar:A",
+      "green",
+      []
+    ],
+    [
+      "led_solar:C",
+      "r_solar:1",
+      "black",
+      []
+    ],
+    [
+      "r_solar:2",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:D26",
+      "led_misto:A",
+      "yellow",
+      []
+    ],
+    [
+      "led_misto:C",
+      "r_misto:1",
+      "black",
+      []
+    ],
+    [
+      "r_misto:2",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:D27",
+      "led_rede:A",
+      "red",
+      []
+    ],
+    [
+      "led_rede:C",
+      "r_rede:1",
+      "black",
+      []
+    ],
+    [
+      "r_rede:2",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:D14",
+      "led_bat:A",
+      "blue",
+      []
+    ],
+    [
+      "led_bat:C",
+      "r_bat:1",
+      "black",
+      []
+    ],
+    [
+      "r_bat:2",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:D18",
+      "led_ev1:A",
+      "gray",
+      []
+    ],
+    [
+      "led_ev1:C",
+      "r_ev1:1",
+      "black",
+      []
+    ],
+    [
+      "r_ev1:2",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:D19",
+      "led_ev2:A",
+      "gray",
+      []
+    ],
+    [
+      "led_ev2:C",
+      "r_ev2:1",
+      "black",
+      []
+    ],
+    [
+      "r_ev2:2",
+      "esp:GND.2",
+      "black",
+      []
+    ]
+  ],
+  "dependencies": {}
+}

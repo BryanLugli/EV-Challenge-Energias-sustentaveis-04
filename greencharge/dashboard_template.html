@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GreenCharge — Painel</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#f6f6f3; --surface:#fcfcfb; --line:#e4e3df; --t1:#0b0b0b; --t2:#52514e; --t3:#8a8983;
+  --solar:#1baf7a; --bat:#2a78d6; --rede:#eb6834; --pv:#0b0b0b; --ponta:rgba(235,104,52,.08);
+  --accent:#1baf7a; --chip:#eceae5;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121211; --surface:#1a1a19; --line:#2c2b29; --t1:#f0efec; --t2:#c3c2b7; --t3:#8f8e86;
+         --solar:#199e70; --bat:#3987e5; --rede:#d95926; --pv:#f0efec; --ponta:rgba(217,89,38,.12);
+         --accent:#199e70; --chip:#262624; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t1);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
+h1{font-size:26px;margin:0;letter-spacing:-.01em}
+h1 span{color:var(--accent)}
+.sub{color:var(--t2);margin:2px 0 0;font-size:14px}
+h2{font-size:15px;margin:0 0 4px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi .rot{color:var(--t2);font-size:13px}
+.kpi .val{font-size:28px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi .cmp{font-size:12.5px;color:var(--t3)}
+.kpi .cmp b{color:var(--accent);font-weight:600}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;background:var(--chip);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;color:var(--t2);padding:7px 12px;border-radius:8px;font:inherit;font-size:13.5px;cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--t1);box-shadow:0 1px 2px rgba(0,0,0,.12);font-weight:600}
+select{font:inherit;font-size:13.5px;padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--t1)}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.legenda{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--t2);margin:6px 0 8px}
+.legenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legenda i.linha{height:0;border-top:2px dashed var(--pv);border-radius:0;width:16px}
+.resumo-dia{font-size:13.5px;color:var(--t2);margin:0}
+.resumo-dia b{color:var(--t1)}
+canvas{max-width:100%}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--t2);font-weight:600;font-size:12.5px}
+td.gc{font-weight:700}
+.chat{display:flex;flex-direction:column;height:100%}
+.msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;min-height:220px;max-height:340px;padding-right:4px}
+.m{padding:9px 12px;border-radius:12px;font-size:13.5px;max-width:92%}
+.m.u{align-self:flex-end;background:var(--accent);color:#fff}
+.m.a{align-self:flex-start;background:var(--chip)}
+.sug{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}
+.sug button{border:1px solid var(--line);background:var(--surface);color:var(--t2);border-radius:999px;padding:5px 10px;font:inherit;font-size:12.5px;cursor:pointer}
+form{display:flex;gap:8px}
+form input{flex:1;font:inherit;font-size:14px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--t1)}
+form button{border:0;background:var(--accent);color:#fff;border-radius:10px;padding:0 14px;font:inherit;font-weight:600;cursor:pointer}
+footer{color:var(--t3);font-size:12.5px;margin-top:20px}
+@media (max-width:860px){ .kpis{grid-template-columns:repeat(2,1fr)} .grid2{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Green<span>Charge</span> · painel do eletroposto</h1>
+      <p class="sub" id="periodo"></p>
+    </div>
+    <p class="sub">FV 15 kWp + inversor GoodWe ET · bateria Lynx Home F 16,4 kWh · 4× GoodWe HCA 7 kW</p>
+  </header>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid2">
+    <div class="card">
+      <div class="ctrl">
+        <div class="seg" id="seg"></div>
+        <select id="dia" aria-label="Dia"></select>
+      </div>
+      <h2>De onde vem a energia que carrega os carros</h2>
+      <div class="legenda">
+        <span><i style="background:var(--solar)"></i>Solar direto</span>
+        <span><i style="background:var(--bat)"></i>Bateria (solar guardado)</span>
+        <span><i style="background:var(--rede)"></i>Rede</span>
+        <span><i class="linha"></i>Geração solar disponível</span>
+        <span><i style="background:var(--ponta);border:1px solid var(--line)"></i>Horário de ponta</span>
+      </div>
+      <canvas id="gDia" height="120" role="img" aria-label="Potência de recarga por fonte ao longo do dia"></canvas>
+      <p class="resumo-dia" id="resumoDia"></p>
+      <h2 style="margin-top:14px">Carga da bateria (%)</h2>
+      <canvas id="gSoc" height="34" role="img" aria-label="Estado de carga da bateria ao longo do dia"></canvas>
+    </div>
+    <div class="card chat">
+      <h2>Pergunte ao GreenCharge</h2>
+      <p class="resumo-dia">Assistente virtual — responde com os números da simulação.</p>
+      <div class="sug" id="sug"></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <form id="f"><input id="q" placeholder="Ex.: quanto CO₂ eu evitei?" autocomplete="off"><button>Enviar</button></form>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Comparação das estratégias — mesmo sol, mesmos carros, 30 dias</h2>
+    <div style="overflow-x:auto"><table id="tab"></table></div>
+  </section>
+
+  <footer>Gerado por <code>python main.py</code>. Dados simulados (modelo de céu claro de Haurwitz + clima por cadeia de Markov) · Tarifa Branca Enel SP (REH ANEEL 3.596/2026) · fator de emissão SIN (MCTI 2025).</footer>
+</main>
+
+<script>
+const D = __DADOS__;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const br = (n, c = 0) => n.toLocaleString('pt-BR', {minimumFractionDigits: c, maximumFractionDigits: c});
+const P = D.passos_dia;
+let est = 'greencharge', dia = D.dia_demo, gDia, gSoc;
+
+// ── KPIs ────────────────────────────────────────────────────────────────
+const gc = D.kpis.greencharge, s2 = D.kpis.imediata;
+const pct = (a, b) => Math.round(100 * (1 - a / b));
+document.getElementById('periodo').textContent = `Simulação de ${D.dias} dias · ${D.datas[0].split('-').reverse().join('/')} a ${D.datas[D.datas.length-1].split('-').reverse().join('/')}`;
+document.getElementById('kpis').innerHTML = [
+  ['Recarga vinda do sol', br(gc.fracao_solar_pct) + '%', `Sprint 2: ${br(s2.fracao_solar_pct)}%`],
+  ['Energia comprada da rede', 'R$ ' + br(gc.custo_rede_rs), `<b>−${pct(gc.custo_rede_rs, s2.custo_rede_rs)}%</b> vs Sprint 2 (R$ ${br(s2.custo_rede_rs)})`],
+  ['Rede no horário de ponta', br(gc.rede_na_ponta_kwh, 1) + ' kWh', `Sprint 2: ${br(s2.rede_na_ponta_kwh)} kWh`],
+  ['CO₂ evitado vs. gasolina', br(gc.co2_evitado_vs_combustao_kg / 1000, 2) + ' t', `${br(gc.km_eletricos)} km elétricos no período`],
+].map(([r, v, c]) => `<div class="card kpi"><div class="rot">${r}</div><div class="val">${v}</div><div class="cmp">${c}</div></div>`).join('');
+
+// ── controles ───────────────────────────────────────────────────────────
+const seg = document.getElementById('seg');
+Object.entries(D.rotulos).forEach(([k, r]) => {
+  const b = document.createElement('button');
+  b.textContent = r; b.className = k === est ? 'on' : '';
+  b.onclick = () => { est = k; [...seg.children].forEach(x => x.className = ''); b.className = 'on'; desenhar(); };
+  seg.appendChild(b);
+});
+const sel = document.getElementById('dia');
+D.datas.forEach((d, i) => {
+  const o = document.createElement('option');
+  const dt = new Date(d + 'T12:00');
+  o.value = i; o.textContent = dt.toLocaleDateString('pt-BR', {weekday: 'short', day: '2-digit', month: '2-digit'}) + ' · ' + D.climas[i];
+  if (i === dia) o.selected = true;
+  sel.appendChild(o);
+});
+sel.onchange = () => { dia = +sel.value; desenhar(); };
+
+// ── gráfico do dia ──────────────────────────────────────────────────────
+const horas = Array.from({length: P}, (_, i) => `${String(Math.floor(i / 4)).padStart(2, '0')}:${String(i % 4 * 15).padStart(2, '0')}`);
+const faixaPonta = {
+  id: 'faixaPonta',
+  beforeDatasetsDraw(c) {
+    const {ctx, chartArea: a, scales: {x}} = c, postos = D.postos.slice(dia * P, dia * P + P);
+    ctx.save(); ctx.fillStyle = css('--ponta');
+    postos.forEach((p, i) => { if (p === 'ponta') { const x0 = x.getPixelForValue(i), x1 = x.getPixelForValue(i + 1); ctx.fillRect(x0, a.top, x1 - x0, a.bottom - a.top); } });
+    ctx.restore();
+  }
+};
+const fatia = (arr) => arr.slice(dia * P, dia * P + P);
+const eixo = () => ({
+  x: {ticks: {color: css('--t2'), maxTicksLimit: 9, autoSkip: true}, grid: {display: false}},
+  y: {beginAtZero: true, ticks: {color: css('--t2')}, grid: {color: css('--line')}, border: {display: false}}
+});
+function desenhar() {
+  const S = D.series[est];
+  const sol = fatia(S.s), bat = fatia(S.b), rede = fatia(S.r), pv = fatia(D.pv), soc = fatia(S.soc);
+  const ds = [
+    {label: 'Solar direto', data: sol, backgroundColor: css('--solar'), fill: true, stack: 'ev'},
+    {label: 'Bateria', data: bat, backgroundColor: css('--bat'), fill: '-1', stack: 'ev'},
+    {label: 'Rede', data: rede, backgroundColor: css('--rede'), fill: '-1', stack: 'ev'},
+  ].map(d => ({...d, borderWidth: 0, pointRadius: 0, stepped: true, borderColor: 'transparent'}));
+  ds.push({label: 'Geração solar', data: pv, borderColor: css('--pv'), borderDash: [5, 4], borderWidth: 1.6, pointRadius: 0, stepped: true, fill: false, stack: 'pv'});
+  const opts = {
+    animation: false, responsive: true, interaction: {mode: 'index', intersect: false},
+    plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => ` ${c.dataset.label}: ${br(c.parsed.y, 1)} kW`}}},
+    scales: {...eixo(), y: {...eixo().y, stacked: true, title: {display: true, text: 'kW', color: css('--t2')}}}
+  };
+  if (gDia) gDia.destroy();
+  gDia = new Chart(document.getElementById('gDia'), {type: 'line', data: {labels: horas, datasets: ds}, options: opts, plugins: [faixaPonta]});
+  if (gSoc) gSoc.destroy();
+  gSoc = new Chart(document.getElementById('gSoc'), {type: 'line',
+    data: {labels: horas, datasets: [{label: 'Bateria', data: soc, borderColor: css('--bat'), borderWidth: 2, pointRadius: 0, stepped: true}]},
+    options: {animation: false, plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => ` Bateria: ${br(c.parsed.y)}%`}}}, interaction: {mode: 'index', intersect: false},
+      scales: {...eixo(), y: {...eixo().y, max: 100, ticks: {color: css('--t2'), stepSize: 50}}}}});
+  const e = a => a.reduce((x, y) => x + y, 0) * 0.25;
+  const tot = e(sol) + e(bat) + e(rede);
+  document.getElementById('resumoDia').innerHTML = tot > 0
+    ? `Neste dia: <b>${br(tot)} kWh</b> entregues aos carros · <b>${br(100 * (e(sol) + e(bat)) / tot)}%</b> solar · <b>${br(e(rede), 1)} kWh</b> da rede`
+    : 'Nenhuma recarga neste dia.';
+}
+desenhar();
+
+// ── tabela comparativa ──────────────────────────────────────────────────
+const linhas = [
+  ['Recarga vinda do sol', 'fracao_solar_pct', v => br(v, 1) + '%'],
+  ['Autoconsumo da geração FV', 'autoconsumo_pv_pct', v => br(v, 1) + '%'],
+  ['Energia entregue aos carros', 'energia_ev_kwh', v => br(v) + ' kWh'],
+  ['Energia da rede', 'ev_da_rede_kwh', v => br(v) + ' kWh'],
+  ['Rede no horário de ponta', 'rede_na_ponta_kwh', v => br(v, 1) + ' kWh'],
+  ['Pico de demanda da rede', 'pico_rede_kw', v => br(v, 1) + ' kW'],
+  ['Intervalos acima do limite (22 kW)', 'passos_acima_limite', v => br(v)],
+  ['Energia comprada da rede', 'custo_rede_rs', v => 'R$ ' + br(v, 2)],
+  ['Compra da rede por kWh entregue', 'custo_rede_por_kwh_rs', v => 'R$ ' + br(v, 3)],
+  ['Custo médio por kWh entregue (líquido)', 'custo_medio_rs_kwh', v => 'R$ ' + br(v, 3)],
+  ['Recargas concluídas', 'sessoes_atendidas_pct', v => br(v, 1) + '%'],
+  ['CO₂ emitido pela recarga', 'co2_rede_kg', v => br(v, 1) + ' kg'],
+];
+const ordem = ['imediata', 'autoconsumo', 'greencharge'];
+document.getElementById('tab').innerHTML =
+  `<thead><tr><th>Indicador</th>${ordem.map(k => `<th>${D.rotulos[k]}</th>`).join('')}</tr></thead><tbody>` +
+  linhas.map(([r, k, f]) => `<tr><td>${r}</td>${ordem.map(o => `<td class="${o === 'greencharge' ? 'gc' : ''}">${f(D.kpis[o][k])}</td>`).join('')}</tr>`).join('') + '</tbody>';
+
+// ── assistente (mesmas intenções do greencharge/assistente.py) ───────────
+const sem = t => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+function responder(q) {
+  q = sem(q);
+  const tem = (...k) => k.some(x => q.includes(x));
+  if (tem('co2', 'carbono', 'emiss', 'ambient'))
+    return `No período, o eletroposto rodou ${br(gc.km_eletricos)} km elétricos e evitou cerca de ${br(gc.co2_evitado_vs_combustao_kg)} kg de CO₂ em relação a carros a gasolina (${br(gc.litros_gasolina_evitados)} litros). ${br(gc.fracao_solar_pct)}% da recarga veio do sol.`;
+  if (tem('economi', 'custo', 'conta', 'dinheiro', 'r$', 'reais', 'gasto'))
+    return `A energia comprada da rede caiu de R$ ${br(s2.custo_rede_rs, 2)} (Sprint 2) para R$ ${br(gc.custo_rede_rs, 2)} — ${pct(gc.custo_rede_rs, s2.custo_rede_rs)}% a menos. Na ponta foram só ${br(gc.rede_na_ponta_kwh, 1)} kWh no mês.`;
+  if (tem('horario', 'hora', 'quando', 'melhor', 'agora')) {
+    const top = [...D.previsao_amanha].sort((a, b) => b.pv_kw - a.pv_kw).slice(0, 4).map(x => x.hora).sort();
+    return `Amanhã o sol deve render mais entre ${top[0]} e ${top[top.length - 1]}. Deixe o carro conectado nesse período e a recarga sai praticamente 100% solar. Evite depender da rede entre 17h30 e 20h30 (ponta, R$ ${br(D.tarifa.ponta, 2)}/kWh).`;
+  }
+  if (tem('bateria', 'soc', 'armazen'))
+    return `A bateria Lynx Home F entregou ${br(gc.ev_da_bateria_kwh)} kWh de energia solar guardada, em ${br(gc.ciclos_bateria)} ciclos. Até 16h30 ela segura uma reserva para cobrir a ponta.`;
+  if (tem('solar', 'sol', 'renovavel', 'painel', 'geracao'))
+    return `Os painéis geraram ${br(gc.energia_pv_kwh)} kWh. ${br(gc.fracao_solar_pct)}% da recarga veio do sol (Sprint 2: ${br(s2.fracao_solar_pct)}%) e ${br(gc.autoconsumo_pv_pct)}% da geração foi usada no local.`;
+  if (tem('pico', 'demanda', 'limite'))
+    return `Pico da rede: ${br(gc.pico_rede_kw, 1)} kW com o GreenCharge, contra ${br(s2.pico_rede_kw, 1)} kW na Sprint 2, que estourou o limite de 22 kW em ${s2.passos_acima_limite} intervalos.`;
+  if (tem('fila', 'vaga', 'esper', 'atendid'))
+    return `${br(gc.sessoes_atendidas_pct)}% das recargas terminaram com a carga pedida (Sprint 2: ${br(s2.sessoes_atendidas_pct)}%), porque o app avisa quando o carro enche e a vaga é liberada para o próximo.`;
+  return 'Posso falar de CO₂, economia, melhor horário para carregar, bateria, energia solar, pico de demanda e fila de vagas.';
+}
+const msgs = document.getElementById('msgs');
+function falar(t, quem) { const d = document.createElement('div'); d.className = 'm ' + quem; d.textContent = t; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; }
+function perguntar(t) { falar(t, 'u'); setTimeout(() => falar(responder(t), 'a'), 250); }
+['Quanto CO₂ evitei?', 'Quanto economizei?', 'Melhor horário amanhã?', 'Como está a bateria?'].forEach(t => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.onclick = () => perguntar(t);
+  document.getElementById('sug').appendChild(b);
+});
+document.getElementById('f').onsubmit = ev => { ev.preventDefault(); const i = document.getElementById('q'); if (i.value.trim()) { perguntar(i.value.trim()); i.value = ''; } };
+falar('Olá! Sou o assistente do GreenCharge. Pergunte sobre a recarga, o sol, a bateria ou a economia.', 'a');
+</script>
+</body>
+</html>
