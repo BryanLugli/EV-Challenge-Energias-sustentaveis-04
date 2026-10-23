@@ -10,8 +10,7 @@ EV Challenge 2026 · GoodWe Brasil · FIAP — Ciência da Computação · Disci
 | Beckman Lugli | RM573442 |
 | Guilherme Xavier | RM573053 |
 
-🎥 **Vídeo de demonstração:** _(link do YouTube não listado)_
-📦 **Sprints anteriores:** [Sprint 2 — simulação](https://github.com/BryanLugli/EV-Challenge-Energias-sustentaveis-02) · [Sprint 3 — protótipo ESP32](https://github.com/BryanLugli/EV-Challenge-Energias-sustentaveis-03)
+
 
 ---
 
